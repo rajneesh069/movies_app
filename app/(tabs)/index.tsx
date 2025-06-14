@@ -1,22 +1,21 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { icons } from "@/constants/icons";
+import { images } from "@/constants/images";
+import { Image, ScrollView, View } from "react-native";
 
 export default function Index() {
   return (
-    <View className="flex-1 justify-center items-center content-center">
-      <Text className="font-bold text-5xl text-dark-200">Hello</Text>
-      <Link href={"/onboarding"} className="underline">
-        Onboarding
-      </Link>
-      <Link
-        href={{
-          pathname: "/movie/[id]",
-          params: { id: "avengers" },
+    <View className="flex-1 bg-primary">
+      <Image source={images.bg} className="absolute z-0 w-full" />
+      <ScrollView
+        className="flex-1 px-5"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          minHeight: "100%",
+          paddingBottom: 10,
         }}
-        className="underline"
       >
-        Movie
-      </Link>
+        <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
+      </ScrollView>
     </View>
   );
 }
