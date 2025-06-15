@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 
 // Shim __filename and __dirname
 const __filename = fileURLToPath(import.meta.url);
-const __dirname  = dirname(__filename);
+const __dirname = dirname(__filename);
 
 console.log("env Path:", resolve(__dirname, "../.env"));
 dotenv.config({ path: resolve(__dirname, "../.env") });
@@ -20,6 +20,10 @@ if (!TMDB_ACCESS_TOKEN) {
     "TMDB ACCESS TOKEN is missing from the environment variables."
   );
 }
+
+app.get("/", async (_, res) => {
+  res.json({ message: "Server is running properly." }).status(200);
+});
 
 app.get("/discover/movie", async (_, res) => {
   const url =
