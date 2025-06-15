@@ -8,12 +8,14 @@ export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
 console.log("env Path:", resolve(__dirname, "../.env"));
-dotenv.config({ path: resolve(__dirname, "../.env") });
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: resolve(__dirname, "../.env") });
+}
 import express, { Request, Response } from "express";
 
 const app = express();
 
-const PORT = parseInt(process.env.PORT ?? "3000", 10);;
+const PORT = parseInt(process.env.PORT ?? "3000", 10);
 app.use(
   cors({
     origin: "*",
@@ -23,7 +25,6 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors);
 
 const TMDB_ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 if (!TMDB_ACCESS_TOKEN) {
@@ -93,7 +94,6 @@ app.get("/discover/movie", async (_, res: Response) => {
   }
 });
 
-app.listen(PORT,() => {
+app.listen(PORT, () => {
   console.log(`Server is running successfully.`);
 });
-
