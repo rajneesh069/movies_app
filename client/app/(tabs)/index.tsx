@@ -49,6 +49,8 @@ export default function Index() {
             <Searchbar
               placeholder="Search for a movie"
               onPress={() => router.push("/search")}
+              value=""
+              onChangeText={() => {}}
             />
             <>
               <Text className="text-lg text-white font-bold mt-5 mb-3">
@@ -57,9 +59,7 @@ export default function Index() {
 
               <FlatList
                 data={movies}
-                renderItem={({ item }) => (
-                  <MovieCard {...item}/>
-                )}
+                renderItem={({ item }) => <MovieCard {...item} />}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={3}
                 columnWrapperStyle={{
