@@ -13,7 +13,7 @@ import express, { Request, Response } from "express";
 
 const app = express();
 
-const PORT = process.env.PORT ?? 3000;
+const PORT = parseInt(process.env.PORT ?? "3000", 10);;
 app.use(
   cors({
     origin: "*",
@@ -39,13 +39,11 @@ app.get("/", async (_, res: Response) => {
 app.get("/search/movie", async (req: Request, res: Response) => {
   const query = req.query.query as string;
   if (!query) {
-    return res
-      .status(400)
-      .json({
-        success: false,
-        message: "Missing `query` parameter",
-        data: null,
-      });
+    return res.status(400).json({
+      success: false,
+      message: "Missing `query` parameter",
+      data: null,
+    });
   }
 
   const url = `https://api.themoviedb.org/3/search/movie?include_adult=false&query=${encodeURIComponent(
@@ -95,6 +93,7 @@ app.get("/discover/movie", async (_, res: Response) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running successfully at: http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server is running successfully at: http://0.0.0.0:${PORT}`);
 });
+
