@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
-
+import cors from "cors";
 // Shim __filename and __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,6 +13,16 @@ import express, { Request, Response } from "express";
 const app = express();
 
 const PORT = process.env.PORT ?? 3000;
+app.use(
+  cors({
+    origin: "*",
+    allowedHeaders: "*",
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors);
 
 const TMDB_ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 if (!TMDB_ACCESS_TOKEN) {
