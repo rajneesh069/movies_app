@@ -3,7 +3,7 @@ import React from "react";
 import { Image, TextInput, View } from "react-native";
 
 interface SearchbarProps {
-  onPress: () => void;
+  onPress?: () => void;
   placeholder: string;
 }
 
